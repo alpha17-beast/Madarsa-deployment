@@ -2,21 +2,21 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  // THIS IS THE NEW, CRITICAL LINE:
-  root: './client',
+  // Tells Vite that the frontend code lives in the 'client' folder.
+  root: path.resolve(__dirname, 'client'),
 
-  // This tells Vite to run the build from the 'dist/public' folder
   build: {
-    outDir: '../dist/public',
+    // Specifies that the build output should go to 'dist/public'.
+    outDir: path.resolve(__dirname, 'dist/public'),
   },
 
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"), // Vite's root is now 'client', so this path is simpler
-      "@shared": path.resolve(__dirname, "../shared"), // We need to go up one directory
+      // These aliases now work correctly because the root is defined.
+      "@": path.resolve(__dirname, "client/src"),
+      "@shared": path.resolve(__dirname, "shared"),
     },
   },
 })
